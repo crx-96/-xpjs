@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/big-number",
-  "version": "0.0.2",
+  "version": "0.0.0",
   "description": "> TODO: description",
   "author": "陈日兴 <18814233102@163.com>",
   "homepage": "https://github.com/crx-96/xpjs#readme",
@@ -26,5 +26,5 @@
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"
   },
-  "gitHead": "04ee1d3d6154c4a9b0431ad8e33c16658f1ccd6d"
+  "gitHead": "ffed0cb75c3fe5a70e987b896259193e8a55e7b7"
 }
