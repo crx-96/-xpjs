@@ -1,0 +1,61 @@
+{
+    "files.autoSave": "onFocusChange", // 自动保存
+    "workbench.tree.indent": 20, // 左边目录树之间的间隔
+    "explorer.autoReveal": false, // 目录文件联动
+    "editor.formatOnSave": true, // 保持的时候格式化
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode" // ts默认格式化使用prettier
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features" // json默认格式化
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode" // js默认格式化使用prettier
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false, // 取消选中的情况下不提示
+    "eslint.options": { // 配置了之后，spec测试文件才不报错
+        "overrideConfig": {
+            "parserOptions": {
+                "createDefaultProgram": true,
+            }
+        }
+    },
+    // 文件关联
+    "files.associations": {
+        // "*.wxml": "html"
+    },
+    "js/ts.implicitProjectConfig.experimentalDecorators": true,
+    // 主题设置
+    "workbench.colorCustomizations": {
+        "[Default Light+]": {
+            "activityBar.background": "#dddddd",
+            "activityBar.foreground": "#007acc",
+        },
+        "[Default Dark+]": {
+            "statusBar.background": "#555555"
+        },
+    },
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Default Light+",
+    "workbench.preferredDarkColorTheme": "Default Dark+",
+    "editor.tokenColorCustomizations": {
+        "[Default Dark+]": {
+            "strings": "#e6db74",
+            "numbers": "#ae81ff",
+            "variables": "#B0C4DE"
+        },
+        "[Default Light+]": {
+            "comments": "#93a1a1",
+            "strings": "#F4A460",
+            "numbers": "#1E90FF",
+            "functions": "#DAA520",
+            "keywords": "#DC143C",
+            "types": "#FF8C00",
+            "variables": "#000000",
+        }
+    },
+    "workbench.colorTheme": "Default Dark+"
+}
