@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "public": true,
+  "private": true,
   "devDependencies": {
     "lerna": "^5.1.1"
   },
