@@ -14,7 +14,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://mirrors.cloud.tencent.com/npm/"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,5 @@
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"
   },
-  "gitHead": "5640290a0c5fcc5ad368948457cabdded4bb307b"
+  "gitHead": "a8cbd15192f345cbfc716e1d37cd8d759cd53a05"
 }
