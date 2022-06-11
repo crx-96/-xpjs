@@ -2,7 +2,7 @@
   "name": "@xpjs/common",
   "version": "0.0.3",
   "description": "> TODO: description",
-  "author": "陈日兴 <18814233102@163.com>",
+  "author": "mr.xing.c",
   "homepage": "https://github.com/crx-96/xpjs#readme",
   "license": "ISC",
   "main": "lib/common.js",
@@ -26,5 +26,5 @@
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"
   },
-  "gitHead": "ffed0cb75c3fe5a70e987b896259193e8a55e7b7"
+  "gitHead": "42e0ed662e23e76c4e92b5cfcf2d5aa13221022c"
 }
