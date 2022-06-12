@@ -7,7 +7,7 @@ import { terser } from 'rollup-plugin-terser';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const commonConfig = {
-  input: 'index.ts',
+  input: './lib/index.ts',
   external: [/@babel\/runtime/],
   plugins: [
     clear({
@@ -69,7 +69,22 @@ export default [
   },
   {
     ...commonConfig,
-    input: './esm/index.js',
+    input: './lib/big.js',
+    plugins: [...commonConfig.plugins],
+    output: [
+      {
+        file: 'cjs/big.js',
+        sourcemap: false,
+      },
+      {
+        file: 'esm/big.js',
+        sourcemap: false,
+      },
+    ],
+  },
+  {
+    ...commonConfig,
+    input: './cjs/index.js',
     plugins: [
       ...commonConfig.plugins,
       babel({
@@ -83,15 +98,15 @@ export default [
     ],
     output: [
       {
-        name: 'XPCommon',
-        file: 'bundle/common.umd.js',
+        name: 'XPJS',
+        file: 'bundle/number.umd.js',
         format: 'umd',
         sourcemap: false,
         exports: 'named',
       },
       {
-        name: 'XPCommon',
-        file: 'bundle/common.umd.min.js',
+        name: 'XPJS',
+        file: 'bundle/number.umd.min.js',
         format: 'umd',
         sourcemap: false,
         exports: 'named',
