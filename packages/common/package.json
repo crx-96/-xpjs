@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"
   },
-  "gitHead": "685601fba1a630387c7c208cd1bf976d95621efb",
+  "gitHead": "e9c5d707f96c3ba7369ee1be77a1536442f42fd8",
   "devDependencies": {
     "@babel/core": "^7.18.2",
     "@babel/plugin-transform-runtime": "^7.18.2",
