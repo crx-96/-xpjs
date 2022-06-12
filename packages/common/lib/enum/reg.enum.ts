@@ -8,5 +8,5 @@ export enum RegEnum {
   LETTER = '^[a-zA-Z]+$',
   CHINESE = '^[\u4e00-\u9fa5]+$',
   LAND_LINE = '^0\\d{2,3}-\\d{7,8}$',
-  UUID = '^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$',
+  UUID = '^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$',
 }

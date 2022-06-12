@@ -1,18 +1,7 @@
 import { RegEnum } from './enum/reg.enum';
-import { isArray, isObject } from './object';
+import { isArray, isObject, isString } from './object';
 
 type trimPosition = 'all' | 'both' | 'left' | 'right' | 'center';
-
-/**
- * 判断是否是字符串
- * @param value
- * @returns
- */
-export const isString = (value: any): boolean => {
-  return (
-    typeof value === 'string' || value instanceof String || Object.prototype.toString.call(value) === '[object String]'
-  );
-};
 
 /**
  * 清除空格

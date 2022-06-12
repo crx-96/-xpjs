@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../bundle/common.umd.min.js"></script>
+</head>
+
+<body>
+    <script>
+        const a = new Map();
+        a.set("a", 1);
+        const b = new Map();
+        b.set("a", 2);
+        b.set("b", 3);
+        console.log(XPCommon.deepMerge(a, b, 1, true));
+    </script>
+</body>
+
+</html>

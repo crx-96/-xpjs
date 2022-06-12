@@ -214,6 +214,6 @@ function Md5(value: string, key = '', raw = false) {
   return rawHMACMD5(key, value);
 }
 
-export const md5 = (value: string, key = '', raw = false): string | null => {
+export const md5 = (value: string, key = '', raw = false): string => {
   return Md5(value, key, raw).toUpperCase();
 };

@@ -1,15 +1,4 @@
-import { isBoolean, isNotEmpty } from './object';
-
-/**
- * 判断是否是数字类型
- * @param value
- * @param strict
- * @returns
- */
-export const isNumber = (value: any, strict = true): boolean => {
-  if (strict) return typeof value === 'number' || Object.prototype.toString.call(value) === '[object Number]';
-  else return !isNaN(Number(value)) && isNotEmpty(value) && !isBoolean(value);
-};
+import { isBoolean, isNotEmpty, isNumber } from './object';
 
 /**
  * 判断是否为整数

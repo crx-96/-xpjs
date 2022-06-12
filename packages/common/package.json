@@ -12,7 +12,9 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "bundle",
+    "cjs",
+    "esm"
   ],
   "publishConfig": {
     "access": "public"
