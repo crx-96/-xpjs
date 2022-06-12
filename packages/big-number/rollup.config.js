@@ -11,7 +11,7 @@ const commonConfig = {
   external: [/@babel\/runtime/],
   plugins: [
     clear({
-      targets: ['bundle', 'cjs', 'esm'],
+      targets: ['bundle', 'cjs'],
     }),
     resolve(),
     commonjs(),
@@ -21,24 +21,13 @@ const commonConfig = {
 export default [
   {
     ...commonConfig,
-    plugins: [
-      ...commonConfig.plugins,
-      typescript({ outDir: 'esm', tsconfig: './tsconfig.esm.json' }),
-      babel({
-        // 编译库使用
-        babelHelpers: 'runtime',
-        // 只转换源代码，不转换外部依赖
-        exclude: 'node_modules/**',
-        // babel 默认不支持 ts 需要手动添加
-        extensions: [...DEFAULT_EXTENSIONS, '.ts'],
-      }),
-    ],
+    input: './lib/big.js',
+    plugins: [...commonConfig.plugins],
     output: [
       {
-        dir: 'esm',
-        format: 'esm',
+        file: 'cjs/big.js',
         sourcemap: false,
-        preserveModules: true,
+        format: 'cjs',
         exports: 'auto',
       },
     ],
@@ -64,21 +53,6 @@ export default [
         sourcemap: false,
         preserveModules: true,
         exports: 'auto',
-      },
-    ],
-  },
-  {
-    ...commonConfig,
-    input: './lib/big.js',
-    plugins: [...commonConfig.plugins],
-    output: [
-      {
-        file: 'cjs/big.js',
-        sourcemap: false,
-      },
-      {
-        file: 'esm/big.js',
-        sourcemap: false,
       },
     ],
   },
