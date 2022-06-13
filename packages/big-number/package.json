@@ -6,6 +6,8 @@
   "homepage": "https://github.com/crx-96/xpjs#readme",
   "license": "ISC",
   "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "broswer": "bundle/number.umd.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -23,8 +25,10 @@
     "url": "git+https://github.com/crx-96/xpjs.git"
   },
   "scripts": {
-    "build": "rollup -c",
-    "test": "jest"
+    "build": "npm run build:cjs & npm run build:esm & rollup -c",
+    "test": "jest",
+    "build:cjs": "rimraf cjs & tsc -p tsconfig.cjs.json",
+    "build:esm": "rimraf esm & tsc -p tsconfig.esm.json"
   },
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"

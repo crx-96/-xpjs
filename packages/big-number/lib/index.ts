@@ -44,3 +44,6 @@ interface XPBig {
 }
 
 export const XPNumber: XPNumberConstructor = Big as unknown as XPNumberConstructor;
+
+export * from './enum/comparison.enum';
+export * from './enum/roundingMode.enum';
