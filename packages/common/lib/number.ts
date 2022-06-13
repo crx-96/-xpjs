@@ -1,4 +1,4 @@
-import { isBoolean, isNotEmpty, isNumber } from './object';
+import { isNumber } from './object';
 
 /**
  * 判断是否为整数
