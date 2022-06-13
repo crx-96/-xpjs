@@ -1,6 +1,7 @@
 import { isBoolean, isUUID } from '../index';
 // import { isBoolean, isUUID } from '../bundle/common.umd';
-// import { isBoolean, isUUID } from '../cjs/index';
+// import { isBoolean, isUUID } from '../esm/index';
+// const { isBoolean, isUUID } = require('../cjs');
 
 describe('测试object方法', () => {
   it('测试isBoolean', () => {

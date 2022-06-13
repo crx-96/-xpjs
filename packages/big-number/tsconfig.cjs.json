@@ -1,7 +1,9 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "module": "esnext",
-        "target": "ES5"
+        "module": "commonjs",
+        "target": "ES5",
+        "outDir": "cjs",
+        "allowJs": true
     }
 }

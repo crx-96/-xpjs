@@ -11,7 +11,7 @@
     "baseUrl": "./",
     "removeComments": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
   },
   "include": [
     "lib",
