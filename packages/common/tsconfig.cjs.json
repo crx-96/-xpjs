@@ -3,7 +3,6 @@
     "compilerOptions": {
         "module": "CommonJs",
         "target": "ES5",
-        "declarationDir": "types",
         "outDir": "cjs"
     }
 }

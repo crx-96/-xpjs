@@ -8,7 +8,7 @@
   "main": "cjs/index.js",
   "module": "esm/index.js",
   "browser": "bundle/common.umd.js",
-  "typings": "types/index.d.ts",
+  "typings": "esm/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -27,11 +27,10 @@
     "url": "git+https://github.com/crx-96/xpjs.git"
   },
   "scripts": {
-    "build": "npm run clean:types & npm run build:cjs & npm run build:esm & rollup -c",
+    "build": "npm run build:cjs & npm run build:esm & rollup -c",
     "test": "jest",
     "build:cjs": "rimraf cjs & tsc -p tsconfig.cjs.json",
-    "build:esm": "rimraf esm & tsc -p tsconfig.esm.json",
-    "clean:types": "rimraf types"
+    "build:esm": "rimraf esm & tsc -p tsconfig.esm.json"
   },
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"
