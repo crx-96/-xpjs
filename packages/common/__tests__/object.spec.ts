@@ -1,5 +1,8 @@
 import { isBoolean, isUUID } from '../index';
-// import { isBoolean, isUUID } from '../bundle/common.umd';
+// import { isBoolean, isUUID } from '../bundle/common5.umd';
+// import { isBoolean, isUUID } from '../bundle/common2015.umd';
+// import { isBoolean, isUUID } from '../cjs5';
+// import { isBoolean, isUUID } from '../cjs2015';
 // import { isBoolean, isUUID } from '../esm/index';
 // const { isBoolean, isUUID } = require('../cjs');
 

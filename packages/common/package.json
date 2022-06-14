@@ -5,18 +5,20 @@
   "author": "mr.xing.c",
   "homepage": "https://github.com/crx-96/xpjs#readme",
   "license": "ISC",
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
-  "browser": "bundle/common.umd.js",
+  "main": "cjs5/index.js",
+  "module": "esm5/index.js",
+  "es2015": "esm2015/index.js",
+  "browser": "bundle/common5.umd.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
     "bundle",
-    "cjs",
-    "esm",
-    "types"
+    "cjs5",
+    "cjs2015",
+    "esm5",
+    "esm2015"
   ],
   "publishConfig": {
     "access": "public"
@@ -26,10 +28,12 @@
     "url": "git+https://github.com/crx-96/xpjs.git"
   },
   "scripts": {
-    "build": "npm run build:cjs & npm run build:esm & rollup -c",
+    "build": "npm run build:cjs5 & npm run build:cjs2015 & npm run build:esm5 & npm run build:esm2015 & rollup -c",
     "test": "jest",
-    "build:cjs": "rimraf cjs & tsc -p tsconfig.cjs.json",
-    "build:esm": "rimraf esm & tsc -p tsconfig.esm.json"
+    "build:cjs5": "rimraf cjs & tsc -p tsconfig.cjs5.json",
+    "build:cjs2015": "rimraf cjs2015 & tsc -p tsconfig.cjs2015.json",
+    "build:esm5": "rimraf esm5 & tsc -p tsconfig.esm5.json",
+    "build:esm2015": "rimraf esm2015 & tsc -p tsconfig.esm2015.json"
   },
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"

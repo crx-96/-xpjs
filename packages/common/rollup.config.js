@@ -17,35 +17,69 @@ const commonConfig = {
   ],
 };
 
-export default {
-  ...commonConfig,
-  input: './cjs/index.js',
-  plugins: [
-    ...commonConfig.plugins,
-    babel({
-      // 编译库使用
-      babelHelpers: 'runtime',
-      // 只转换源代码，不转换外部依赖
-      exclude: 'node_modules/**',
-      // babel 默认不支持 ts 需要手动添加
-      extensions: [...DEFAULT_EXTENSIONS],
-    }),
-  ],
-  output: [
-    {
-      name: 'XPCommon',
-      file: 'bundle/common.umd.js',
-      format: 'umd',
-      sourcemap: false,
-      exports: 'named',
-    },
-    {
-      name: 'XPCommon',
-      file: 'bundle/common.umd.min.js',
-      format: 'umd',
-      sourcemap: false,
-      exports: 'named',
-      plugins: [terser()],
-    },
-  ],
-};
+export default [
+  {
+    ...commonConfig,
+    input: './esm5/index.js',
+    plugins: [
+      ...commonConfig.plugins,
+      babel({
+        // 编译库使用
+        babelHelpers: 'runtime',
+        // 只转换源代码，不转换外部依赖
+        exclude: 'node_modules/**',
+        // babel 默认不支持 ts 需要手动添加
+        extensions: [...DEFAULT_EXTENSIONS],
+      }),
+    ],
+    output: [
+      {
+        name: 'XPCommon',
+        file: 'bundle/common5.umd.js',
+        format: 'umd',
+        sourcemap: false,
+        exports: 'named',
+      },
+      {
+        name: 'XPCommon',
+        file: 'bundle/common5.umd.min.js',
+        format: 'umd',
+        sourcemap: false,
+        exports: 'named',
+        plugins: [terser()],
+      },
+    ],
+  },
+  {
+    ...commonConfig,
+    input: './esm2015/index.js',
+    plugins: [
+      ...commonConfig.plugins,
+      babel({
+        // 编译库使用
+        babelHelpers: 'runtime',
+        // 只转换源代码，不转换外部依赖
+        exclude: 'node_modules/**',
+        // babel 默认不支持 ts 需要手动添加
+        extensions: [...DEFAULT_EXTENSIONS],
+      }),
+    ],
+    output: [
+      {
+        name: 'XPCommon',
+        file: 'bundle/common2015.umd.js',
+        format: 'umd',
+        sourcemap: false,
+        exports: 'named',
+      },
+      {
+        name: 'XPCommon',
+        file: 'bundle/common2015.umd.min.js',
+        format: 'umd',
+        sourcemap: false,
+        exports: 'named',
+        plugins: [terser()],
+      },
+    ],
+  },
+];

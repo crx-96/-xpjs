@@ -20,9 +20,10 @@
   "exclude": [
     "node_modules",
     "bundle",
-    "cjs",
-    "esm",
-    "types",
+    "cjs5",
+    "cjs2015",
+    "esm5",
+    "esm2015",
     "__tests__"
   ]
 }

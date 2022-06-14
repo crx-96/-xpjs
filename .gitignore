@@ -4,7 +4,10 @@ yarn-error.log
 package-lock.json
 lerna-debug.log
 cjs
+cjs5
+cjs2015
 esm
-types
+esm5
+esm2015
 bundle
 coverage
