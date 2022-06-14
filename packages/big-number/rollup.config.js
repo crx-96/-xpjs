@@ -33,14 +33,14 @@ export default {
   ],
   output: [
     {
-      name: 'XPNumber',
+      name: 'XPBig',
       file: 'bundle/number.umd.js',
       format: 'umd',
       sourcemap: false,
       exports: 'named',
     },
     {
-      name: 'XPNumber',
+      name: 'XPBig',
       file: 'bundle/number.umd.min.js',
       format: 'umd',
       sourcemap: false,

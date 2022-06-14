@@ -2,7 +2,7 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "module": "esnext",
-        "target": "ES6",
+        "target": "ES5",
         "outDir": "esm",
         "allowJs": true
     }

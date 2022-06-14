@@ -2,11 +2,11 @@ import { RoundingMode } from './enum/roundingMode.enum';
 import { Comparison } from './enum/comparison.enum';
 const Big = require('./big.js');
 
-type BigSource = number | string | XPBig;
+type BigSource = number | string | XPNumber;
 
-interface XPNumberConstructor {
-  new (value: BigSource): XPBig;
-  (value: BigSource): XPBig;
+interface XPBigConstructor {
+  new (value: BigSource): XPNumber;
+  (value: BigSource): XPNumber;
   DP: number;
   RM: number;
   NE: number;
@@ -17,23 +17,23 @@ interface XPNumberConstructor {
   readonly roundUp: 3;
 }
 
-interface XPBig {
-  abs(): XPBig;
+interface XPNumber {
+  abs(): XPNumber;
   cmp(n: BigSource): Comparison;
-  div(n: BigSource): XPBig;
+  div(n: BigSource): XPNumber;
   eq(n: BigSource): boolean;
   gt(n: BigSource): boolean;
   gte(n: BigSource): boolean;
   lt(n: BigSource): boolean;
   lte(n: BigSource): boolean;
-  minus(n: BigSource): XPBig;
-  mod(n: BigSource): XPBig;
-  plus(n: BigSource): XPBig;
-  pow(exp: number): XPBig;
-  prec(sd: number, rm?: RoundingMode): XPBig;
-  round(dp?: number, rm?: RoundingMode): XPBig;
-  sqrt(): XPBig;
-  times(n: BigSource): XPBig;
+  minus(n: BigSource): XPNumber;
+  mod(n: BigSource): XPNumber;
+  plus(n: BigSource): XPNumber;
+  pow(exp: number): XPNumber;
+  prec(sd: number, rm?: RoundingMode): XPNumber;
+  round(dp?: number, rm?: RoundingMode): XPNumber;
+  sqrt(): XPNumber;
+  times(n: BigSource): XPNumber;
   toExponential(dp?: number, rm?: RoundingMode): string;
   toFixed(dp?: number, rm?: RoundingMode): string;
   toJSON(): string;
@@ -43,7 +43,7 @@ interface XPBig {
   valueOf(): string;
 }
 
-export const XPNumber: XPNumberConstructor = Big as unknown as XPNumberConstructor;
+export const XPBig: XPBigConstructor = Big as unknown as XPBigConstructor;
 
 export * from './enum/comparison.enum';
 export * from './enum/roundingMode.enum';
