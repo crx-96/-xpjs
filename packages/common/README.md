@@ -1,11 +1,8 @@
 # `common`
 
-> TODO: description
-
 ## Usage
 
-```
-const common = require('common');
-
-// TODO: DEMONSTRATE API
+```js
+import { isString } from "@xpjs/common";
+isString("123") === true;
 ```

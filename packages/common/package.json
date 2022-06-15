@@ -1,11 +1,11 @@
 {
   "name": "@xpjs/common",
   "version": "1.1.0",
-  "description": "> TODO: description",
+  "description": "xpjs共同部分",
   "author": "mr.xing.c",
   "homepage": "https://github.com/crx-96/xpjs#readme",
   "license": "ISC",
-  "main": "cjs5/index.js",
+  "main": "cjs2015/index.js",
   "module": "esm5/index.js",
   "es2015": "esm2015/index.js",
   "browser": "bundle/common5.umd.js",
