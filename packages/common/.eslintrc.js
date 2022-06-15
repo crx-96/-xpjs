@@ -23,8 +23,10 @@ module.exports = {
     '.eslintignore',
     'coverage',
     'bundle',
-    'cjs',
-    'esm',
+    'cjs5',
+    'cjs2015',
+    'esm5',
+    'esm2015',
     '__tests__',
   ],
   rules: {
