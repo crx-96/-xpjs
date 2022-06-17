@@ -7,7 +7,7 @@ export interface ILocale {
   monthsShort?: string[];
   weekdaysMin?: string[];
   ordinal?: (n: number) => number | string;
-  formats: Partial<{
+  formats?: Partial<{
     LT: string;
     LTS: string;
     L: string;
@@ -15,7 +15,7 @@ export interface ILocale {
     LLL: string;
     LLLL: string;
   }>;
-  relativeTime: Partial<{
+  relativeTime?: Partial<{
     future: string;
     past: string;
     s: string;

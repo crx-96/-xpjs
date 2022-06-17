@@ -1,14 +1,49 @@
 import * as C from './constant';
 import en from './locale/en';
+import { ILocale } from './locale/type';
 import U from './utils';
 
 let L = 'en'; // global locale
-const Ls: any = {}; // global loaded locale
+const Ls: { [key: string]: ILocale } = {}; // global loaded locale
 Ls[L] = en;
+
+interface ConfigTypeMap {
+  default: string | number | Date | Dayjs | null | undefined;
+}
+
+export type ConfigType = ConfigTypeMap[keyof ConfigTypeMap];
+
+export interface FormatObject {
+  locale?: string;
+  format?: string;
+  utc?: boolean;
+}
+
+export type OptionType = FormatObject | string | string[];
+
+export type UnitTypeShort = 'd' | 'D' | 'M' | 'y' | 'h' | 'm' | 's' | 'ms';
+
+export type UnitTypeLong = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'date';
+
+export type UnitTypeLongPlural =
+  | 'milliseconds'
+  | 'seconds'
+  | 'minutes'
+  | 'hours'
+  | 'days'
+  | 'months'
+  | 'years'
+  | 'dates';
+
+export type UnitType = UnitTypeLong | UnitTypeLongPlural | UnitTypeShort;
+
+export type OpUnitType = UnitType | 'week' | 'weeks' | 'w';
+export type QUnitType = UnitType | 'quarter' | 'quarters' | 'Q';
+export type ManipulateType = Exclude<OpUnitType, 'date' | 'dates'>;
 
 const isDayjs = (d: any) => d instanceof Dayjs; // eslint-disable-line no-use-before-define
 
-const parseLocale = (preset, object, isLocal) => {
+const parseLocale = (preset?: any, object?: any, isLocal?: any): any => {
   let l;
   if (!preset) return L;
   if (typeof preset === 'string') {
@@ -33,9 +68,9 @@ const parseLocale = (preset, object, isLocal) => {
   return l || (!isLocal && L);
 };
 
-const dayjs = function (date, c) {
+const dayjs = function (date?: ConfigType, c?: any) {
   if (isDayjs(date)) {
-    return date.clone();
+    return (date as Dayjs).clone();
   }
   // eslint-disable-next-line no-nested-ternary
   const cfg = typeof c === 'object' ? c : {};
@@ -44,7 +79,7 @@ const dayjs = function (date, c) {
   return new Dayjs(cfg); // eslint-disable-line no-use-before-define
 };
 
-const wrapper = (date, instance) =>
+const wrapper = (date: any, instance: any) =>
   dayjs(date, {
     locale: instance.$L,
     utc: instance.$u,
@@ -52,18 +87,18 @@ const wrapper = (date, instance) =>
     $offset: instance.$offset, // todo: refactor; do not use this.$offset in you code
   });
 
-const Utils = U; // for plugin use
+const Utils: any = U; // for plugin use
 Utils.l = parseLocale;
 Utils.i = isDayjs;
 Utils.w = wrapper;
 
-const parseDate = (cfg) => {
+const parseDate = (cfg: any) => {
   const { date, utc } = cfg;
   if (date === null) return new Date(NaN); // null is invalid
   if (Utils.u(date)) return new Date(); // today
   if (date instanceof Date) return new Date(date);
   if (typeof date === 'string' && !/Z$/i.test(date)) {
-    const d = date.match(C.REGEX_PARSE);
+    const d: any = date.match(C.REGEX_PARSE);
     if (d) {
       const m = d[2] - 1 || 0;
       const ms = (d[7] || '0').substring(0, 3);
@@ -78,27 +113,27 @@ const parseDate = (cfg) => {
 };
 
 class Dayjs {
-  constructor(cfg) {
-    this.$L = parseLocale(cfg.locale, null, true);
+  constructor(cfg: ConfigType) {
+    (this as any).$L = parseLocale((cfg as Dayjs).locale, null, true);
     this.parse(cfg); // for plugin
   }
 
-  parse(cfg) {
-    this.$d = parseDate(cfg);
-    this.$x = cfg.x || {};
+  parse(cfg: any) {
+    (this as any).$d = parseDate(cfg);
+    (this as any).$x = cfg.x || {};
     this.init();
   }
 
   init() {
-    const { $d } = this;
-    this.$y = $d.getFullYear();
-    this.$M = $d.getMonth();
-    this.$D = $d.getDate();
-    this.$W = $d.getDay();
-    this.$H = $d.getHours();
-    this.$m = $d.getMinutes();
-    this.$s = $d.getSeconds();
-    this.$ms = $d.getMilliseconds();
+    const { $d } = this as any;
+    (this as any).$y = $d.getFullYear();
+    (this as any).$M = $d.getMonth();
+    (this as any).$D = $d.getDate();
+    (this as any).$W = $d.getDay();
+    (this as any).$H = $d.getHours();
+    (this as any).$m = $d.getMinutes();
+    (this as any).$s = $d.getSeconds();
+    (this as any).$ms = $d.getMilliseconds();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -106,50 +141,50 @@ class Dayjs {
     return Utils;
   }
 
-  isValid() {
-    return !(this.$d.toString() === C.INVALID_DATE_STRING);
+  isValid(): boolean {
+    return !((this as any).$d.toString() === C.INVALID_DATE_STRING);
   }
 
-  isSame(that, units) {
+  isSame(that: ConfigType, units: OpUnitType): boolean {
     const other = dayjs(that);
     return this.startOf(units) <= other && other <= this.endOf(units);
   }
 
-  isAfter(that, units) {
+  isAfter(that: ConfigType, units: OpUnitType): boolean {
     return dayjs(that) < this.startOf(units);
   }
 
-  isBefore(that, units) {
+  isBefore(that: ConfigType, units: OpUnitType): boolean {
     return this.endOf(units) < dayjs(that);
   }
 
-  $g(input, get, set) {
-    if (Utils.u(input)) return this[get];
+  $g(input: any, get: any, set: any): any {
+    if (Utils.u(input)) return (this as any)[get];
     return this.set(set, input);
   }
 
-  unix() {
+  unix(): number {
     return Math.floor(this.valueOf() / 1000);
   }
 
-  valueOf() {
+  valueOf(): number {
     // timezone(hour) * 60 * 60 * 1000 => ms
-    return this.$d.getTime();
+    return (this as any).$d.getTime();
   }
 
-  startOf(units, startOf) {
+  startOf(units: OpUnitType, startOf = true) {
     // startOf -> endOf
     const isStartOf = !Utils.u(startOf) ? startOf : true;
     const unit = Utils.p(units);
-    const instanceFactory = (d, m) => {
-      const ins = Utils.w(this.$u ? Date.UTC(this.$y, m, d) : new Date(this.$y, m, d), this);
+    const instanceFactory = (d: number | undefined, m: number) => {
+      const ins = Utils.w((this as any).$u ? Date.UTC((this as any).$y, m, d) : new Date((this as any).$y, m, d), this);
       return isStartOf ? ins : ins.endOf(C.D);
     };
-    const instanceFactorySet = (method, slice) => {
+    const instanceFactorySet = (method: string, slice: number | undefined) => {
       const argumentStart = [0, 0, 0, 0];
       const argumentEnd = [23, 59, 59, 999];
       return Utils.w(
-        this.toDate()[method].apply(
+        (this as any).toDate()[method].apply(
           // eslint-disable-line prefer-spread
           this.toDate('s'),
           (isStartOf ? argumentStart : argumentEnd).slice(slice),
@@ -157,8 +192,8 @@ class Dayjs {
         this,
       );
     };
-    const { $W, $M, $D } = this;
-    const utcPad = `set${this.$u ? 'UTC' : ''}`;
+    const { $W, $M, $D } = this as any;
+    const utcPad = `set${(this as any).$u ? 'UTC' : ''}`;
     switch (unit) {
       case C.Y:
         return isStartOf ? instanceFactory(1, 0) : instanceFactory(31, 11);
@@ -183,58 +218,58 @@ class Dayjs {
     }
   }
 
-  endOf(arg) {
+  endOf(arg: OpUnitType) {
     return this.startOf(arg, false);
   }
 
-  $set(units, int) {
+  $set(units: any, int: number) {
     // private set
     const unit = Utils.p(units);
-    const utcPad = `set${this.$u ? 'UTC' : ''}`;
-    const name = {
-      [C.D]: `${utcPad}Date`,
-      [C.DATE]: `${utcPad}Date`,
-      [C.M]: `${utcPad}Month`,
-      [C.Y]: `${utcPad}FullYear`,
-      [C.H]: `${utcPad}Hours`,
-      [C.MIN]: `${utcPad}Minutes`,
-      [C.S]: `${utcPad}Seconds`,
-      [C.MS]: `${utcPad}Milliseconds`,
+    const utcPad = `set${(this as any).$u ? 'UTC' : ''}`;
+    const name: any = {
+      [(C as any).D]: `${utcPad}Date`,
+      [(C as any).DATE]: `${utcPad}Date`,
+      [(C as any).M]: `${utcPad}Month`,
+      [(C as any).Y]: `${utcPad}FullYear`,
+      [(C as any).H]: `${utcPad}Hours`,
+      [(C as any).MIN]: `${utcPad}Minutes`,
+      [(C as any).S]: `${utcPad}Seconds`,
+      [(C as any).MS]: `${utcPad}Milliseconds`,
     }[unit];
-    const arg = unit === C.D ? this.$D + (int - this.$W) : int;
+    const arg = unit === C.D ? (this as any).$D + (int - (this as any).$W) : int;
 
     if (unit === C.M || unit === C.Y) {
       // clone is for badMutable plugin
       const date = this.clone().set(C.DATE, 1);
       date.$d[name](arg);
       date.init();
-      this.$d = date.set(C.DATE, Math.min(this.$D, date.daysInMonth())).$d;
-    } else if (name) this.$d[name](arg);
+      (this as any).$d = date.set(C.DATE, Math.min((this as any).$D, date.daysInMonth())).$d;
+    } else if (name) (this as any).$d[name](arg);
 
     this.init();
     return this;
   }
 
-  set(string, int) {
+  set(string: UnitType, int: number) {
     return this.clone().$set(string, int);
   }
 
-  get(unit) {
-    return this[Utils.p(unit)]();
+  get(unit: UnitType) {
+    return (this as any)[Utils.p(unit)]();
   }
 
-  add(number, units) {
+  add(number: number, units?: ManipulateType) {
     number = Number(number); // eslint-disable-line no-param-reassign
     const unit = Utils.p(units);
-    const instanceFactorySet = (n) => {
+    const instanceFactorySet = (n: number) => {
       const d = dayjs(this);
       return Utils.w(d.date(d.date() + Math.round(n * number)), this);
     };
     if (unit === C.M) {
-      return this.set(C.M, this.$M + number);
+      return this.set(C.M, (this as any).$M + number);
     }
     if (unit === C.Y) {
-      return this.set(C.Y, this.$y + number);
+      return this.set(C.Y, (this as any).$y + number);
     }
     if (unit === C.D) {
       return instanceFactorySet(1);
@@ -242,54 +277,54 @@ class Dayjs {
     if (unit === C.W) {
       return instanceFactorySet(7);
     }
-    const step =
+    const step: any =
       {
-        [C.MIN]: C.MILLISECONDS_A_MINUTE,
-        [C.H]: C.MILLISECONDS_A_HOUR,
-        [C.S]: C.MILLISECONDS_A_SECOND,
+        [(C as any).MIN]: C.MILLISECONDS_A_MINUTE,
+        [(C as any).H]: C.MILLISECONDS_A_HOUR,
+        [(C as any).S]: C.MILLISECONDS_A_SECOND,
       }[unit] || 1; // ms
 
-    const nextTimeStamp = this.$d.getTime() + number * step;
+    const nextTimeStamp = (this as any).$d.getTime() + number * step;
     return Utils.w(nextTimeStamp, this);
   }
 
-  subtract(number, string) {
+  subtract(number: number, string?: ManipulateType) {
     return this.add(number * -1, string);
   }
 
-  format(formatStr) {
+  format(formatStr?: string) {
     const locale = this.$locale();
 
     if (!this.isValid()) return locale.invalidDate || C.INVALID_DATE_STRING;
 
     const str = formatStr || C.FORMAT_DEFAULT;
     const zoneStr = Utils.z(this);
-    const { $H, $m, $M } = this;
+    const { $H, $m, $M } = this as any;
     const { weekdays, months, meridiem } = locale;
-    const getShort = (arr, index, full, length) =>
+    const getShort = (arr: any, index: string | number, full?: any, length?: number | undefined) =>
       (arr && (arr[index] || arr(this, str))) || full[index].slice(0, length);
-    const get$H = (num) => Utils.s($H % 12 || 12, num, '0');
+    const get$H = (num: number) => Utils.s($H % 12 || 12, num, '0');
 
     const meridiemFunc =
       meridiem ||
-      ((hour, minute, isLowercase) => {
+      ((hour: number, minute: any, isLowercase: any) => {
         const m = hour < 12 ? 'AM' : 'PM';
         return isLowercase ? m.toLowerCase() : m;
       });
 
-    const matches = {
-      YY: String(this.$y).slice(-2),
-      YYYY: this.$y,
+    const matches: any = {
+      YY: String((this as any).$y).slice(-2),
+      YYYY: (this as any).$y,
       M: $M + 1,
       MM: Utils.s($M + 1, 2, '0'),
       MMM: getShort(locale.monthsShort, $M, months, 3),
       MMMM: getShort(months, $M),
-      D: this.$D,
-      DD: Utils.s(this.$D, 2, '0'),
-      d: String(this.$W),
-      dd: getShort(locale.weekdaysMin, this.$W, weekdays, 2),
-      ddd: getShort(locale.weekdaysShort, this.$W, weekdays, 3),
-      dddd: weekdays[this.$W],
+      D: (this as any).$D,
+      DD: Utils.s((this as any).$D, 2, '0'),
+      d: String((this as any).$W),
+      dd: getShort(locale.weekdaysMin, (this as any).$W, weekdays, 2),
+      ddd: getShort(locale.weekdaysShort, (this as any).$W, weekdays, 3),
+      dddd: weekdays[(this as any).$W],
       H: String($H),
       HH: Utils.s($H, 2, '0'),
       h: get$H(1),
@@ -298,9 +333,9 @@ class Dayjs {
       A: meridiemFunc($H, $m, false),
       m: String($m),
       mm: Utils.s($m, 2, '0'),
-      s: String(this.$s),
-      ss: Utils.s(this.$s, 2, '0'),
-      SSS: Utils.s(this.$ms, 3, '0'),
+      s: String((this as any).$s),
+      ss: Utils.s((this as any).$s, 2, '0'),
+      SSS: Utils.s((this as any).$ms, 3, '0'),
       Z: zoneStr, // 'ZZ' logic below
     };
 
@@ -310,7 +345,7 @@ class Dayjs {
   utcOffset() {
     // Because a bug at FF24, we're rounding the timezone offset around 15 minutes
     // https://github.com/moment/moment/pull/1871
-    return -Math.round(this.$d.getTimezoneOffset() / 15) * 15;
+    return -Math.round((this as any).$d.getTimezoneOffset() / 15) * 15;
   }
 
   diff(input, units, float) {
@@ -356,7 +391,7 @@ class Dayjs {
     return Utils.w(this.$d, this);
   }
 
-  toDate() {
+  toDate(s?: any) {
     return new Date(this.valueOf());
   }
 
