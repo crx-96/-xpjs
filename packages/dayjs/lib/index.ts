@@ -295,12 +295,12 @@ class Dayjs {
   format(formatStr?: string) {
     const locale = this.$locale();
 
-    if (!this.isValid()) return locale.invalidDate || C.INVALID_DATE_STRING;
+    if (!this.isValid()) return (locale as any).invalidDate || C.INVALID_DATE_STRING;
 
     const str = formatStr || C.FORMAT_DEFAULT;
     const zoneStr = Utils.z(this);
     const { $H, $m, $M } = this as any;
-    const { weekdays, months, meridiem } = locale;
+    const { weekdays, months, meridiem } = locale as any;
     const getShort = (arr: any, index: string | number, full?: any, length?: number | undefined) =>
       (arr && (arr[index] || arr(this, str))) || full[index].slice(0, length);
     const get$H = (num: number) => Utils.s($H % 12 || 12, num, '0');
@@ -348,19 +348,19 @@ class Dayjs {
     return -Math.round((this as any).$d.getTimezoneOffset() / 15) * 15;
   }
 
-  diff(input, units, float) {
+  diff(input: string | number | Date | Dayjs | null | undefined, units: any, float: any) {
     const unit = Utils.p(units);
     const that = dayjs(input);
     const zoneDelta = (that.utcOffset() - this.utcOffset()) * C.MILLISECONDS_A_MINUTE;
-    const diff = this - that;
-    let result = Utils.m(this, that);
+    const diff = (this as any) - that;
+    let result: any = Utils.m(this, that);
 
     result =
       {
-        [C.Y]: result / 12,
-        [C.M]: result,
-        [C.Q]: result / 3,
-        [C.W]: (diff - zoneDelta) / C.MILLISECONDS_A_WEEK,
+        [(C as any).Y]: result / 12,
+        [(C as any).M]: result,
+        [(C as any).Q]: result / 3,
+        [(C as any).W]: (diff - zoneDelta) / C.MILLISECONDS_A_WEEK,
         [C.D]: (diff - zoneDelta) / C.MILLISECONDS_A_DAY,
         [C.H]: diff / C.MILLISECONDS_A_HOUR,
         [C.MIN]: diff / C.MILLISECONDS_A_MINUTE,
@@ -376,11 +376,11 @@ class Dayjs {
 
   $locale() {
     // get locale object
-    return Ls[this.$L];
+    return Ls[(this as any).$L];
   }
 
-  locale(preset, object) {
-    if (!preset) return this.$L;
+  locale(preset: any, object: any) {
+    if (!preset) return (this as any).$L;
     const that = this.clone();
     const nextLocaleName = parseLocale(preset, object, true);
     if (nextLocaleName) that.$L = nextLocaleName;
@@ -388,7 +388,7 @@ class Dayjs {
   }
 
   clone() {
-    return Utils.w(this.$d, this);
+    return Utils.w((this as any).$d, this);
   }
 
   toDate(s?: any) {
@@ -403,11 +403,11 @@ class Dayjs {
     // ie 8 return
     // new Dayjs(this.valueOf() + this.$d.getTimezoneOffset() * 60000)
     // .format('YYYY-MM-DDTHH:mm:ss.SSS[Z]')
-    return this.$d.toISOString();
+    return (this as any).$d.toISOString();
   }
 
   toString() {
-    return this.$d.toUTCString();
+    return (this as any).$d.toUTCString();
   }
 }
 
@@ -423,12 +423,12 @@ dayjs.prototype = proto;
   ['$y', C.Y],
   ['$D', C.DATE],
 ].forEach((g) => {
-  proto[g[1]] = function (input) {
+  (proto as any)[g[1]] = function (input: any) {
     return this.$g(input, g[0], g[1]);
   };
 });
 
-dayjs.extend = (plugin, option) => {
+dayjs.extend = (plugin: any, option: any) => {
   if (!plugin.$i) {
     // install plugin only once
     plugin(option, Dayjs, dayjs);
@@ -441,9 +441,107 @@ dayjs.locale = parseLocale;
 
 dayjs.isDayjs = isDayjs;
 
-dayjs.unix = (timestamp) => dayjs(timestamp * 1e3);
+dayjs.unix = (timestamp: number) => dayjs(timestamp * 1e3);
 
 dayjs.en = Ls[L];
 dayjs.Ls = Ls;
 dayjs.p = {};
-export default dayjs;
+
+export type PluginFunc<T = unknown> = (option: T, c: typeof Dayjs, d: typeof dayjs) => void;
+
+interface DayjsConstructor {
+  (date?: ConfigType): DayjsExample;
+  (date?: ConfigType, format?: OptionType, strict?: boolean): DayjsExample;
+  (date?: ConfigType, format?: OptionType, locale?: string, strict?: boolean): DayjsExample;
+  new (date?: ConfigType): DayjsExample;
+  new (date?: ConfigType, format?: OptionType, strict?: boolean): DayjsExample;
+  new (date?: ConfigType, format?: OptionType, locale?: string, strict?: boolean): DayjsExample;
+  extend<T = unknown>(plugin: PluginFunc<T>, option?: T): DayjsExample;
+  locale(preset?: string | ILocale, object?: Partial<ILocale>, isLocal?: boolean): string;
+  isDayjs(d: any): d is DayjsExample;
+  unix(t: number): DayjsExample;
+}
+
+interface DayjsExample {
+  clone(): DayjsExample;
+
+  isValid(): boolean;
+
+  year(): number;
+
+  year(value: number): DayjsExample;
+
+  month(): number;
+
+  month(value: number): DayjsExample;
+
+  date(): number;
+
+  date(value: number): DayjsExample;
+
+  day(): number;
+
+  day(value: number): DayjsExample;
+
+  hour(): number;
+
+  hour(value: number): DayjsExample;
+
+  minute(): number;
+
+  minute(value: number): DayjsExample;
+
+  second(): number;
+
+  second(value: number): DayjsExample;
+
+  millisecond(): number;
+
+  millisecond(value: number): DayjsExample;
+
+  set(unit: UnitType, value: number): DayjsExample;
+
+  get(unit: UnitType): number;
+
+  add(value: number, unit?: ManipulateType): DayjsExample;
+
+  subtract(value: number, unit?: ManipulateType): DayjsExample;
+
+  startOf(unit: OpUnitType): DayjsExample;
+
+  endOf(unit: OpUnitType): DayjsExample;
+
+  format(template?: string): string;
+
+  diff(date?: ConfigType, unit?: QUnitType | OpUnitType, float?: boolean): number;
+
+  valueOf(): number;
+
+  unix(): number;
+
+  daysInMonth(): number;
+
+  toDate(): Date;
+
+  toJSON(): string;
+
+  toISOString(): string;
+
+  toString(): string;
+
+  utcOffset(): number;
+
+  isBefore(date: ConfigType, unit?: OpUnitType): boolean;
+
+  isSame(date: ConfigType, unit?: OpUnitType): boolean;
+
+  isAfter(date: ConfigType, unit?: OpUnitType): boolean;
+
+  locale(): string;
+
+  locale(preset: string | ILocale, object?: Partial<ILocale>): DayjsExample;
+}
+
+const dayjsFn: DayjsConstructor = dayjs as unknown as DayjsConstructor;
+
+export default dayjsFn;
