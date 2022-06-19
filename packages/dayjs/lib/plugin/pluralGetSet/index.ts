@@ -1,5 +1,5 @@
-export default (o, c) => {
-  const proto = c.prototype
+export default (o: any, c: { prototype: any }) => {
+  const proto = c.prototype;
 
   const pluralAliases = [
     'milliseconds',
@@ -12,10 +12,10 @@ export default (o, c) => {
     'months',
     'quarters',
     'years',
-    'dates'
-  ]
+    'dates',
+  ];
 
   pluralAliases.forEach((alias) => {
-    proto[alias] = proto[alias.replace(/s$/, '')]
-  })
-}
+    proto[alias] = proto[alias.replace(/s$/, '')];
+  });
+};

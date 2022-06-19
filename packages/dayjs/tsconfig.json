@@ -12,6 +12,7 @@
     "removeComments": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
+    "downlevelIteration": true
   },
   "include": [
     "lib"

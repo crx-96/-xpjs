@@ -5,13 +5,17 @@
   "author": "mr.xing.c",
   "homepage": "https://github.com/crx-96/xpjs#readme",
   "license": "ISC",
-  "main": "lib/moment.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "browser": "bundle/dayjs.umd.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "cjs",
+    "esm",
+    "bundle"
   ],
   "publishConfig": {
     "registry": "https://mirrors.cloud.tencent.com/npm/"
@@ -21,7 +25,10 @@
     "url": "git+https://github.com/crx-96/xpjs.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest",
+    "build:cjs": "rimraf cjs & tsc -p tsconfig.cjs.json",
+    "build:esm": "rimraf esm & tsc -p tsconfig.esm.json",
+    "build": "npm run build:cjs & npm run build:esm & rollup -c"
   },
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"

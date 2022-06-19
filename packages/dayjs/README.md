@@ -1,11 +1,8 @@
-# `moment`
-
-> TODO: description
+# `dayjs`
 
 ## Usage
 
-```
-const moment = require('moment');
-
-// TODO: DEMONSTRATE API
+```js
+import dayjs from '@xpjs/dayjs';
+console.log(dayjs().format());
 ```

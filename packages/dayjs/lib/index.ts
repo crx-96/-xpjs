@@ -447,7 +447,7 @@ dayjs.en = Ls[L];
 dayjs.Ls = Ls;
 dayjs.p = {};
 
-export type PluginFunc<T = unknown> = (option: T, c: typeof Dayjs, d: typeof dayjs) => void;
+export type PluginFunc<T = unknown> = (option: T, c?: any, d?: any) => void;
 
 interface DayjsConstructor {
   (date?: ConfigType): DayjsExample;
@@ -540,6 +540,9 @@ interface DayjsExample {
   locale(): string;
 
   locale(preset: string | ILocale, object?: Partial<ILocale>): DayjsExample;
+
+  // 继承方法
+  [index: string]: Function;
 }
 
 const dayjsFn: DayjsConstructor = dayjs as unknown as DayjsConstructor;
