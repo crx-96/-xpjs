@@ -18,7 +18,7 @@
     "bundle"
   ],
   "publishConfig": {
-    "registry": "https://mirrors.cloud.tencent.com/npm/"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -58,5 +58,6 @@
     "ts-jest": "^28.0.4",
     "tslib": "^2.4.0",
     "typescript": "^4.7.3"
-  }
+  },
+  "gitHead": "2d6677d4f9336e80ed67137d422abb7fc70d8c8c"
 }
