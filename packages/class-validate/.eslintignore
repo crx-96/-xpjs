@@ -1,0 +1,7 @@
+node_modules
+coverage
+bundle
+cjs
+esm5
+esm2015
+__tests__
