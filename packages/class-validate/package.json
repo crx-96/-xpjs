@@ -41,7 +41,8 @@
   "dependencies": {
     "@xpjs/big-number": "*",
     "@xpjs/common": "*",
-    "@xpjs/dayjs": "*"
+    "@xpjs/dayjs": "*",
+    "reflect-metadata": "0.1.13"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
@@ -62,7 +63,6 @@
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
     "prettier": "^2.6.2",
-    "reflect-metadata": "0.1.13",
     "rimraf": "^3.0.2",
     "rollup": "^2.75.6",
     "rollup-plugin-clear": "^2.0.7",
