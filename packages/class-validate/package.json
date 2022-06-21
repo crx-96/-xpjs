@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/class-validate",
-  "version": "1.0.0",
+  "version": "1.1.4",
   "description": "",
   "author": "mr.xing.c",
   "homepage": "https://github.com/crx-96/xpjs#readme",
@@ -39,8 +39,8 @@
     "url": "https://github.com/crx-96/xpjs/issues"
   },
   "dependencies": {
-    "@xpjs/common": "*",
     "@xpjs/big-number": "*",
+    "@xpjs/common": "*",
     "@xpjs/dayjs": "*"
   },
   "devDependencies": {
