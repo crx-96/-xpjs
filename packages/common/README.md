@@ -1,6 +1,6 @@
 # `common`
 
-## Usage
+## 用法
 
 ```js
 import { isString } from "@xpjs/common";

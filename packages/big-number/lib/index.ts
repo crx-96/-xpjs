@@ -43,7 +43,9 @@ interface XPNumber {
   valueOf(): string;
 }
 
-export const XPBig: XPBigConstructor = Big as unknown as XPBigConstructor;
+const XPBig: XPBigConstructor = Big as unknown as XPBigConstructor;
+
+export default XPBig;
 
 export * from './enum/comparison.enum';
 export * from './enum/roundingMode.enum';
