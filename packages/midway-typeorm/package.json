@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/midway-typeorm",
-  "version": "1.0.2",
+  "version": "1.2.0",
   "description": "",
   "main": "dist/index.js",
   "typings": "index.d.ts",
