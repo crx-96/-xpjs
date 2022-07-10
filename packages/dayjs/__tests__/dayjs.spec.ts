@@ -2,10 +2,6 @@ import dayjs from '../lib/index';
 import '../lib/locale/zh-cn';
 import isLeapYear from '../lib/plugin/isLeapYear';
 
-// import dayjs from '../cjs/index';
-// import '../cjs/locale/zh-cn';
-// import isLeapYear from '../cjs/plugin/isLeapYear';
-
 dayjs.locale('zh-cn');
 dayjs.extend(isLeapYear);
 
