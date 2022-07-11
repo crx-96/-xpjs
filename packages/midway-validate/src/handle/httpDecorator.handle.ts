@@ -51,7 +51,9 @@ const handleTypeData = (
   } else {
     // 处理class类型
     if (isObject(result)) {
-      result = plainToInstance(options.originParamType, result, { excludeExtraneousValues: true });
+      result = plainToInstance(options.originParamType, result, {
+        excludeExtraneousValues: true,
+      });
       const errors = validateSync(result);
       if (errors.length) {
         let errMsg = '';
