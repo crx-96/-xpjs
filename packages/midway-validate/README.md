@@ -57,15 +57,14 @@ class TestDTO {
 
 ```ts
 // controller/xxx.ts
-import { Controller, Post } from '@midwayjs/decorator';
+import { Controller, Post, Body } from '@midwayjs/decorator';
 import { TestDTO } from 'pojo/model/test';
-// Body用该组件的，用法与原来的一致
-import { Body, Validate } from '@xpjs/midway-validate';
+import { Validate } from '@xpjs/midway-validate';
 
 @Controller('/xxx/xxx')
 export class XXXController {
   @Post('/xxxx')
-  @Validate() // 加上此装饰器验证
+  @Validate({ type: TestDTO }) // 加上此装饰器验证，model如果定义了类型可不用传type参数，类型需要是类对象
   async test(@Body() model: TestDTO): Promise<string> {
     console.log(model);
     return 'hello world!';
