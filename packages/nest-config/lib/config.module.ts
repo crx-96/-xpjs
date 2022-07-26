@@ -1,5 +1,6 @@
 import { DynamicModule, Scope } from '@nestjs/common';
-import { ConfigOptions } from './config.interface';
+import { isObject } from '@xpjs/common';
+import { AsyncConfigOptions, AsyncOptions, ConfigOptions, RecordBackType } from './config.interface';
 import { ConfigService } from './config.service';
 
 export class ConfigModule {
@@ -20,21 +21,29 @@ export class ConfigModule {
     };
   }
 
-  static registerAsync(handle: () => Promise<Record<string, any>>): DynamicModule {
+  static registerAsync(handle: AsyncConfigOptions): DynamicModule {
     return {
       module: ConfigModule,
       providers: [
+        ...(isObject(handle) ? (handle as AsyncOptions).providers || [] : []),
         {
           provide: ConfigService,
-          useFactory: async () => {
-            const config = await handle();
+          useFactory: async (...args: any[]) => {
+            let config = {};
+            if (isObject(handle)) {
+              config = await (handle as AsyncOptions).useFactory(...args);
+            } else {
+              config = await (handle as RecordBackType)();
+            }
             const service = new ConfigService();
             service.set(config);
             return service;
           },
+          inject: [...(isObject(handle) ? (handle as AsyncOptions).inject || [] : [])],
           scope: Scope.DEFAULT,
         },
       ],
+      imports: [...(isObject(handle) ? (handle as AsyncOptions).imports || [] : [])],
       exports: [ConfigService],
       global: true,
     };

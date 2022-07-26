@@ -1,3 +1,12 @@
+import {
+  DynamicModule,
+  ForwardReference,
+  InjectionToken,
+  OptionalFactoryDependency,
+  Provider,
+  Type,
+} from '@nestjs/common';
+
 // 配置选项
 export interface ConfigOptions {
   /**
@@ -13,4 +22,15 @@ export interface ConfigOptions {
    * 1、配置此项之后，此层级比folder高
    */
   path?: string | string[];
+}
+
+// 异步配置选项
+export type AsyncConfigOptions = RecordBackType | AsyncOptions;
+
+export type RecordBackType = () => Promise<Record<string, any>> | Record<string, any>;
+export interface AsyncOptions {
+  inject?: Array<InjectionToken | OptionalFactoryDependency>;
+  useFactory: (...args: any[]) => Promise<Record<string, any>> | Record<string, any>;
+  providers?: Provider<any>[];
+  imports?: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;
 }
