@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/nest-winston",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "nestjs日志模块",
   "keywords": [
     "nestjs日志模块"
