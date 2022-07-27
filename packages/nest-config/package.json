@@ -30,7 +30,7 @@
     "url": "https://github.com/crx-96/xpjs/issues"
   },
   "dependencies": {
-    "@xpjs/common": "^1.2.1"
+    "@xpjs/common": "*"
   },
   "devDependencies": {
     "@nestjs/common": "^9.0.0",
