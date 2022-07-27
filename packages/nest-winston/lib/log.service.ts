@@ -31,7 +31,4 @@ export class LogService implements LoggerService {
     });
     this.logger.levels = tt;
   }
-  sql(message: any, ...optionalParams: any[]) {
-    this.logger.log('sql', message, ...optionalParams);
-  }
 }
