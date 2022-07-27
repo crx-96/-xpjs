@@ -8,6 +8,7 @@ export {
   Logform,
   Logger,
   Profiler,
+  LoggerOptions,
   RejectionHandler,
   add,
   addColors,
