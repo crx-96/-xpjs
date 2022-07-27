@@ -152,7 +152,11 @@ export const deepClone = <T = any>(value: T): T => {
   }
   // 函数类型返回新函数
   if (isFunction(value)) {
-    return new Function('return ' + (value as any).toString())();
+    try {
+      return new Function('return ' + (value as any).toString())();
+    } catch (error) {
+      return value;
+    }
   }
   // 对象遍历返回
   if (isObject(value)) {
