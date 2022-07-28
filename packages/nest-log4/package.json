@@ -1,6 +1,6 @@
 {
-  "name": "@xpjs/nest-winston",
-  "version": "1.0.3",
+  "name": "@xpjs/nest-log4",
+  "version": "0.0.1",
   "description": "nestjs日志模块",
   "keywords": [
     "nestjs日志模块"
@@ -30,7 +30,7 @@
     "url": "https://github.com/crx-96/xpjs/issues"
   },
   "dependencies": {
-    "winston": "^3.8.1"
+    "log4js": "^6.6.1"
   },
   "devDependencies": {
     "@nestjs/common": "^9.0.0",
