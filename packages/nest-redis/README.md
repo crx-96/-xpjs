@@ -1,4 +1,4 @@
-# `nest-log4`
+# `nest-redis`
 
 ## 用法
 
