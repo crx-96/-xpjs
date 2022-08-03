@@ -26,6 +26,9 @@
   "bugs": {
     "url": "https://github.com/crx-96/xpjs/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "ioredis": "^5.2.2"
   },
@@ -71,5 +74,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "gitHead": "c0cb20cf7f1619ea3fba403683a6d5664d9052b9"
 }
