@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/nest-redis",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "nest的redis模块",
   "keywords": [
     "redis"
