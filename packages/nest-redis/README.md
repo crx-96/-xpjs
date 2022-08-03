@@ -7,17 +7,12 @@
 ```ts
 // app.module.ts
 import { Module } from '@nestjs/common';
-import { LogModule } from '@xpjs/nest-log4';
+import { RedisModule } from '@xpjs/nest-redis';
 
 @Module({
   imports: [
-    // 日志模块
-    LogModule.register({
-      appenders: { console: { type: 'stdout' } },
-      categories: {
-        default: { appenders: ['console'], level: 'info' },
-      },
-    }),
+    // redis模块
+    RedisModule.register({ host: '127.0.0.1', port: 6379, password: '123456', db: 0 }),
   ],
 })
 export class AppModule {}
@@ -29,12 +24,12 @@ export class AppModule {}
 
 ```ts
 // service.ts
-import { LogService } from '@xpjs/nest-log4';
+import { RedisService } from '@xpjs/nest-redis';
 import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
 export class LogTestService {
   @Inject()
-  private readonly logger: LogService;
+  private readonly logger: RedisService;
 }
 ```
