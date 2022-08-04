@@ -2,9 +2,9 @@ import { Redis, RedisService, RedisOptions, RedisModule } from '../lib';
 import { Test } from '@nestjs/testing';
 
 const config: RedisOptions = {
-  host: '127.0.0.1',
+  host: '121.4.174.89',
   port: 6379,
-  password: '123456',
+  password: 'crx2zsh9874',
   db: 0,
 };
 
@@ -14,10 +14,10 @@ describe('测试redis的基本用法', () => {
   });
 
   describe('测试多实例', () => {
-    let redis;
-    let redis2;
-    let redis3;
-    let redis4;
+    let redis: RedisService;
+    let redis2: RedisService;
+    let redis3: RedisService;
+    let redis4: RedisService;
 
     beforeEach(async () => {
       const ref = await Test.createTestingModule({
