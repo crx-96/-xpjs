@@ -57,5 +57,8 @@
             "variables": "#000000",
         }
     },
-    "workbench.colorTheme": "Default Dark+"
+    "workbench.colorTheme": "Default Dark+",
+    "cSpell.words": [
+        "logv"
+    ]
 }

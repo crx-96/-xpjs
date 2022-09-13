@@ -78,4 +78,38 @@ describe('测试日志', () => {
             expect(1).toBe(1);
         });
     });
+
+    describe('测试控制套打印日志', () => {
+        let logger: Logger;
+
+        beforeEach(async () => {
+            const ref = await Test.createTestingModule({
+                imports: [
+                    Logger.register({
+                        level: 'debug',
+                        transports: [
+                            {
+                                type: 'console',
+                                level: 'info',
+                                format: {
+                                    printf: ({ timestamp, message }) =>
+                                        `[==========${timestamp}==========]：\n${message}`,
+                                    colorize: { all: true },
+                                },
+                            },
+                        ],
+                    }),
+                ],
+            }).compile();
+            logger = ref.get(Logger);
+        });
+
+        it('测试控制套打印日志', () => {
+            logger.debug('debug');
+            logger.info('info');
+            logger.warn('warn');
+            logger.error('error');
+            expect(1).toBe(1);
+        });
+    });
 });

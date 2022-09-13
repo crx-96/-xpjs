@@ -1,4 +1,4 @@
-import { LoggerOptions } from './interface';
+import { Format, LoggerOptions } from './interface';
 import {
     DynamicModule,
     ForwardReference,
@@ -8,15 +8,61 @@ import {
     Scope,
     Type,
 } from '@nestjs/common';
-import winston, { createLogger, transports } from 'winston';
+import winston, { createLogger, transports, format } from 'winston';
 
 export class Logger {
     protected readonly logger: winston.Logger;
 
     public constructor(options?: Partial<LoggerOptions>) {
-        this.logger = createLogger({
-            transports: [new transports.Console()],
-        });
+        const config: winston.LoggerOptions = {
+            level: options?.level || 'info',
+            transports: [],
+            format: format.combine(
+                format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+                format.colorize(),
+                format.printf((i) => `[${i.timestamp}][${i.level}]:${i.message}`),
+            ),
+        };
+        config.format = format.combine(...this.getFormat(options?.format));
+        // 设置默认通道
+        if (!options?.transports || options.transports.length === 0) {
+            config.transports = [new transports.Console()];
+        } else {
+            // 设置传输通道
+            config.transports = options.transports.map((i): any => {
+                const { type, format: mFormat, ...other } = i;
+                if (type === 'console') {
+                    return new transports.Console({
+                        ...other,
+                        format: format.combine(...this.getFormat(mFormat)),
+                    });
+                }
+            });
+        }
+        this.logger = createLogger(config);
+    }
+
+    // 获取格式化配置
+    private getFormat(ff?: Format): winston.Logform.Format[] {
+        const combineFormats: winston.Logform.Format[] = [];
+        if (ff?.printf) {
+            combineFormats.push(format.printf(ff.printf));
+            if (ff?.align) {
+                combineFormats.unshift(format.align());
+            }
+            if (ff?.timeFormat) {
+                combineFormats.unshift(format.timestamp({ format: ff.timeFormat }));
+            }
+            if (ff?.colorize) {
+                combineFormats.unshift(format.colorize(ff.colorize));
+            }
+        } else {
+            combineFormats.push(
+                format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+                format.printf(({ timestamp, message }) => `[==========${timestamp}==========]：\n${message}`),
+            );
+        }
+        return combineFormats;
     }
 
     public info(message: string): this;
@@ -66,6 +112,16 @@ export class Logger {
     public warning(infoObject: object): this;
     public warning(message: any, ...args: any[]): this {
         this.logger.warning(message, ...args);
+        return this;
+    }
+
+    public log(level: string, message: string): this;
+    public log(level: string, message: string, meta: any): this;
+    public log(level: string, message: string, ...meta: any[]): this;
+    public log(level: string, message: any): this;
+    public log(entry: winston.LogEntry): this;
+    public log(level: any, message?: any, ...args: any[]): this {
+        this.logger.log(level, message, ...args);
         return this;
     }
 
