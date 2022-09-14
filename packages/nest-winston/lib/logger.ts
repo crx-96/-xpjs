@@ -38,18 +38,18 @@ export class Logger {
                 if (type === 'console') {
                     return new transports.Console({
                         ...other,
-                        format: format.combine(...this.getFormat(mFormat)),
+                        format: mFormat?.printf ? format.combine(...this.getFormat(mFormat)) : undefined,
                     });
                 } else if (type === 'file') {
                     if (daily) {
                         return new transports.DailyRotateFile({
                             ...other,
-                            format: format.combine(...this.getFormat(mFormat)),
+                            format: mFormat?.printf ? format.combine(...this.getFormat(mFormat)) : undefined,
                         });
                     } else {
                         return new transports.File({
                             ...other,
-                            format: format.combine(...this.getFormat(mFormat)),
+                            format: mFormat?.printf ? format.combine(...this.getFormat(mFormat)) : undefined,
                         } as any);
                     }
                 }
