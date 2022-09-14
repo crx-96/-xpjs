@@ -123,7 +123,7 @@ describe('测试日志', () => {
                     Logger.register({
                         levels: {
                             info: 0,
-                            error: 1,
+                            error: 2,
                         },
                         transports: [
                             {
