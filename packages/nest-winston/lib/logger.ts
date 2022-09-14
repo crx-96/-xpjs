@@ -9,6 +9,7 @@ import {
     Type,
 } from '@nestjs/common';
 import winston, { createLogger, transports, format } from 'winston';
+import 'winston-daily-rotate-file';
 
 export class Logger {
     protected readonly logger: winston.Logger;
@@ -23,6 +24,9 @@ export class Logger {
                 format.printf((i) => `[${i.timestamp}][${i.level}]:${i.message}`),
             ),
         };
+        if (options?.levels) {
+            config.levels = options.levels;
+        }
         config.format = format.combine(...this.getFormat(options?.format));
         // 设置默认通道
         if (!options?.transports || options.transports.length === 0) {
@@ -30,12 +34,24 @@ export class Logger {
         } else {
             // 设置传输通道
             config.transports = options.transports.map((i): any => {
-                const { type, format: mFormat, ...other } = i;
+                const { type, format: mFormat, daily, ...other } = i;
                 if (type === 'console') {
                     return new transports.Console({
                         ...other,
                         format: format.combine(...this.getFormat(mFormat)),
                     });
+                } else if (type === 'file') {
+                    if (daily) {
+                        return new transports.DailyRotateFile({
+                            ...other,
+                            format: format.combine(...this.getFormat(mFormat)),
+                        });
+                    } else {
+                        return new transports.File({
+                            ...other,
+                            format: format.combine(...this.getFormat(mFormat)),
+                        } as any);
+                    }
                 }
             });
         }

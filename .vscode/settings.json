@@ -59,6 +59,8 @@
     },
     "workbench.colorTheme": "Default Dark+",
     "cSpell.words": [
-        "logv"
+        "logv",
+        "maxsize",
+        "tailable"
     ]
 }

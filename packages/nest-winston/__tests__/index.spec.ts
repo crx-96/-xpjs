@@ -1,5 +1,6 @@
 import { Logger } from '../lib';
 import { Test } from '@nestjs/testing';
+import { resolve } from 'path';
 
 class CustomLogger extends Logger {
     public constructor(options?: any) {
@@ -79,7 +80,7 @@ describe('测试日志', () => {
         });
     });
 
-    describe('测试控制套打印日志', () => {
+    describe('测试控制台打印日志', () => {
         let logger: Logger;
 
         beforeEach(async () => {
@@ -109,6 +110,52 @@ describe('测试日志', () => {
             logger.info('info');
             logger.warn('warn');
             logger.error('error');
+            expect(1).toBe(1);
+        });
+    });
+
+    describe('测试文件输出日志', () => {
+        let logger: Logger;
+
+        beforeEach(async () => {
+            const ref = await Test.createTestingModule({
+                imports: [
+                    Logger.register({
+                        levels: {
+                            info: 0,
+                            error: 1,
+                        },
+                        transports: [
+                            {
+                                type: 'file',
+                                filename: resolve(__dirname, '../../../logs/info%DATE%.log'),
+                                daily: true,
+                                datePattern: 'YYYYMMDD',
+                                maxFiles: '1d',
+                                maxSize: '20m',
+                                level: 'info',
+                            },
+                            {
+                                type: 'file',
+                                filename: resolve(__dirname, '../../../logs/error%DATE%.log'),
+                                daily: true,
+                                datePattern: 'YYYYMMDD',
+                                maxFiles: '1d',
+                                maxSize: '20m',
+                                level: 'error',
+                            },
+                        ],
+                    }),
+                ],
+            }).compile();
+            logger = ref.get(Logger);
+        });
+
+        it('测试文件输出日志', () => {
+            for (let i = 0; i < 1000; i++) {
+                logger.info('123');
+                logger.error('123');
+            }
             expect(1).toBe(1);
         });
     });
