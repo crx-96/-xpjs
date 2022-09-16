@@ -1,5 +1,6 @@
 import { RegEnum } from './enum/reg.enum';
-import { isArray, isObject, isString } from './object';
+import { getRandomInt } from './number';
+import { isArray, isNumber, isObject, isString, isUndefined } from './object';
 
 type trimPosition = 'all' | 'both' | 'left' | 'right' | 'center';
 
@@ -274,3 +275,69 @@ export const isAudioByExtName = (fileName: string): boolean => {
 export const isUUID = (value: string): boolean => {
   return isString(value) && new RegExp(RegEnum.UUID).test(value);
 };
+
+/**
+ * 生成随机字符串
+ * type：
+ * all-大小写字母和数字
+ * number-数字
+ * letter-大小写字母
+ * upper-大写字母
+ * lower-小写字母
+ * lower_number-小写字母和数字
+ * upper_number-大写字母和数字
+ */
+export type RandomType = 'all' | 'number' | 'letter' | 'upper' | 'lower' | 'lower_number' | 'upper_number';
+export function getRandomString(length: number): string;
+export function getRandomString(length: number, type: RandomType): string;
+export function getRandomString(minLength: number, maxLength: number): string;
+export function getRandomString(minLength: number, maxLength: number, type: RandomType): string;
+export function getRandomString(minLength: number, maxLength?: number | RandomType, type?: RandomType): string {
+  if (isNumber(minLength, false)) {
+    minLength = Math.floor(Number(minLength));
+    if (isUndefined(maxLength)) {
+      return getRandom(minLength, 'all');
+    } else {
+      if (isNumber(maxLength, false)) {
+        const length = getRandomInt(minLength, maxLength as number);
+        return getRandom(length, type || 'all');
+      } else {
+        return getRandom(minLength, maxLength as RandomType);
+      }
+    }
+  }
+  return '';
+}
+function getRandom(length: number, type: RandomType): string {
+  let str = '';
+  let result = '';
+  const upperStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowerStr = upperStr.toLowerCase();
+  const number = '0123456789';
+  switch (type) {
+    case 'letter':
+      str = upperStr + lowerStr;
+      break;
+    case 'lower':
+      str = lowerStr;
+      break;
+    case 'lower_number':
+      str = lowerStr + number;
+      break;
+    case 'number':
+      str = number;
+      break;
+    case 'upper':
+      str = upperStr;
+      break;
+    case 'upper_number':
+      str = upperStr + number;
+      break;
+    default:
+      str = upperStr + lowerStr + number;
+  }
+  for (let i = 0; i < length; i++) {
+    result += str[Math.floor(Math.random() * str.length)];
+  }
+  return result;
+}

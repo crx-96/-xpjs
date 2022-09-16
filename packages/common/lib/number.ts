@@ -1,4 +1,4 @@
-import { isNumber } from './object';
+import { isNumber, isUndefined } from './object';
 
 /**
  * 判断是否为整数
@@ -160,3 +160,32 @@ export const numberToMoney = (
     }
   }
 };
+
+export function getRandomInt(max: number): number;
+export function getRandomInt(min: number, max: number): number;
+/**
+ * 获取[min,max]间的随机整数，包含min和max，不传max则为[0,min]
+ * @param min
+ * @param max
+ * @returns
+ */
+export function getRandomInt(min: number, max?: number): number {
+  if (isNumber(min, false)) {
+    min = Math.floor(Number(min));
+    if (isUndefined(max) && min > 0) {
+      // 只有一个入参，返回一个[0,min]的随机正整数，包含0和min
+      return Math.floor(Math.random() * (min + 1));
+    }
+    if (!isUndefined(max) && isNumber(max, false)) {
+      max = Math.floor(Number(max));
+      if (max < min) {
+        const temp = max;
+        max = min;
+        min = temp;
+      }
+      // 两个入参，返回一个[min,max]的随机整数，包含min和max
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+  }
+  return 0;
+}
