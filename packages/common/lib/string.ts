@@ -217,7 +217,7 @@ export const isStringJson = (value: string, checkBase = true): boolean => {
  */
 export const isImageByExtName = (fileName: string): boolean => {
   // 图片的后缀名
-  const imgExt = ['.png', '.jpg', '.jpeg', '.bmp', '.gif'];
+  const imgExt = ['.png', '.jpg', '.jpeg', '.bmp', '.gif', 'svg'];
   // 将名称转成小写字符
   const name = fileName.toLowerCase();
   // 判断是否以图片后缀名结尾
