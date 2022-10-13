@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/nest-winston",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "nest日志模块",
   "keywords": [
     "winston、nest、nest-winston"
@@ -74,7 +74,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@xpjs/common": "^1.2.2",
+    "@xpjs/common": "^1.2.3",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
   }

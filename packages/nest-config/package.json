@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/nest-config",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "nestjs配置模块 ",
   "keywords": [
     "nestjs配置模块"
@@ -30,7 +30,7 @@
     "url": "https://github.com/crx-96/xpjs/issues"
   },
   "dependencies": {
-    "@xpjs/common": "^1.2.2"
+    "@xpjs/common": "^1.2.3"
   },
   "devDependencies": {
     "@nestjs/common": "^9.0.0",

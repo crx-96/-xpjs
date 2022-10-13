@@ -1,6 +1,6 @@
 {
   "name": "@xpjs/midway-validate",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "",
   "main": "dist/index.js",
   "typings": "index.d.ts",
@@ -28,7 +28,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@xpjs/common": "^1.2.2",
+    "@xpjs/common": "^1.2.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2"
   },
