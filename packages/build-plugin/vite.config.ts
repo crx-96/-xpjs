@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { VitePluginCopyFile } from "./lib/index";
+import { VitePluginCopyFile, VitePluginHtml } from "./lib/index";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,13 +11,19 @@ export default defineConfig({
       {
         src: "./dist/public/index.html",
         dest: "./dist",
-        del: ["./dist/public", "./dist/public/index.html"],
+        del: ["./dist/public"],
+      },
+    ]),
+    VitePluginHtml([
+      {
+        record: { title: "index" },
+        htmlPrefix: "htmlWebpackPlugin.options.",
+        fixed: ["/vite.svg"],
       },
     ]),
   ],
-  build: {
-    rollupOptions: {
-      input: "./public/index.html",
-    },
+  server: {
+    port: 3999,
+    host: "0.0.0.0",
   },
 });

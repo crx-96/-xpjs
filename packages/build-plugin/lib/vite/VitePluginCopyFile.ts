@@ -10,11 +10,17 @@ export const VitePluginCopyFile = (
   }
 ): Plugin => {
   const delList: string[] = [];
+  let delay = 100;
   return {
     name: "vite-plugin-copy-file",
+    enforce: "post",
+    apply: "build",
     closeBundle() {
       if (Array.isArray(options)) {
         options.forEach((item) => {
+          if (item?.delay && item.delay > delay) {
+            delay = item.delay;
+          }
           if (item?.del) {
             if (Array.isArray(item.del)) {
               delList.push(...item.del.map((i) => getUrl(i)));
@@ -29,6 +35,9 @@ export const VitePluginCopyFile = (
           }
         });
       } else {
+        if (options?.delay) {
+          delay = options.delay;
+        }
         if (options?.del) {
           if (Array.isArray(options.del)) {
             delList.push(...options.del.map((i) => getUrl(i)));
@@ -44,9 +53,11 @@ export const VitePluginCopyFile = (
       }
       // 删除文件
       delList.sort((a, b) => b.length - a.length);
-      delList.forEach((item) => {
-        delFile(item);
-      });
+      setTimeout(() => {
+        delList.forEach((item) => {
+          delFile(item);
+        });
+      }, delay);
     },
     config() {
       return {
