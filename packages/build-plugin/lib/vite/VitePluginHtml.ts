@@ -1,12 +1,13 @@
-import { IndexHtmlTransformContext, Plugin } from "vite";
+import { IndexHtmlTransformContext, Plugin as VitePlugin } from "vite";
 import { getUrl } from "../utils";
 import { basename } from "path";
+import { Plugin } from "../typings";
 
 export const VitePluginHtml = (
   options: Plugin.VitePlugin.HtmlOptions | Plugin.VitePlugin.HtmlOptions[] = {
     template: "index.html",
   }
-): Plugin => {
+): VitePlugin => {
   const list: Plugin.VitePlugin.HtmlOptions[] = [];
   const fixObj: Record<string, string> = {};
   if (Array.isArray(options)) {

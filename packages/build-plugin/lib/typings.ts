@@ -1,4 +1,4 @@
-namespace Plugin {
+export namespace Plugin {
   // 复制文件插件参数
   export interface CopyFileOptions {
     src: string; // 原文件路径，可以是目录或者文件

@@ -1,5 +1,6 @@
 import { existsSync } from "fs";
-import { Plugin } from "vite";
+import { Plugin as VitePlugin } from "vite";
+import { Plugin } from "../typings";
 import { copyFile, delFile, getUrl } from "../utils";
 
 export const VitePluginCopyFile = (
@@ -8,7 +9,7 @@ export const VitePluginCopyFile = (
     dest: "dist/static",
     outFile: false,
   }
-): Plugin => {
+): VitePlugin => {
   const delList: string[] = [];
   let delay = 100;
   return {
