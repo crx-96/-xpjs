@@ -2,6 +2,7 @@ import * as C from './constant';
 import en from './locale/en';
 import { ILocale } from './locale/type';
 import U from './utils';
+import UTC from './plugin/utc/index';
 
 let L = 'en'; // global locale
 const Ls: { [key: string]: ILocale } = {}; // global loaded locale
@@ -446,6 +447,7 @@ dayjs.unix = (timestamp: number) => dayjs(timestamp * 1e3);
 dayjs.en = Ls[L];
 dayjs.Ls = Ls;
 dayjs.p = {};
+dayjs.extend(UTC, null);
 
 export type PluginFunc<T = unknown> = (option: T, c?: any, d?: any) => void;
 
@@ -460,6 +462,9 @@ interface DayjsConstructor {
   locale(preset?: string | ILocale, object?: Partial<ILocale>, isLocal?: boolean): string;
   isDayjs(d: any): d is DayjsExample;
   unix(t: number): DayjsExample;
+  utc(date?: ConfigType): DayjsExample;
+  utc(date?: ConfigType, format?: OptionType, strict?: boolean): DayjsExample;
+  utc(date?: ConfigType, format?: OptionType, locale?: string, strict?: boolean): DayjsExample;
 }
 
 interface DayjsExample {
@@ -540,6 +545,10 @@ interface DayjsExample {
   locale(): string;
 
   locale(preset: string | ILocale, object?: Partial<ILocale>): DayjsExample;
+
+  utc(): DayjsExample;
+  isUTC(): boolean;
+  local(): DayjsExample;
 
   // 继承方法
   [index: string]: Function;

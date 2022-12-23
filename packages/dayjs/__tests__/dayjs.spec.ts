@@ -19,5 +19,6 @@ describe('测试dayjs', () => {
     expect(dayjs('2022-06-18 12:12:12').isLeapYear()).toBe(false);
     expect(dayjs('2000-06-18 12:12:12').isLeapYear()).toBe(true);
     expect(dayjs('a').second()).toBe(NaN);
+    console.log(dayjs('2022-12-12 12:00:00').utc().format('YYYY-MM-DD HH:mm:ss'));
   });
 });
